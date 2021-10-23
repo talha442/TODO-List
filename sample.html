@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- <script src="./JAvaScriptAssingment01.js"></script> -->
+  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
+  <!-- <script src="./JAvaScriptAssingment03.js"></script> -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #Button {
+      width: 1000px;
+      margin: 200px;
+      text-align: center;
+      color: rgb(31, 131, 5);
+      margin-top: -200px;
+    }
+
+    .button {
+      font-size: 25px;
+      margin: 10px;
+      padding: 0 21px 0 22px;
+    }
+  </style>
+  <script>
+    let todoArray = [];
+    function AddTodo(e) {
+      if (text.value == "") {
+        alert("Enter Some Value")
+      }
+      else {
+        console.log(text.value)
+        todoArray.push(text.value);
+        text.value = "";
+        displayTodo();
+      }
+    }
+
+    function EditTodo(i) {
+      const addTaskButton = document.getElementById("add-task-btn");
+      const saveTaskButton = document.getElementById("save-todo-btn");
+      const saveInd = document.getElementById("saveIndex");
+      saveInd.value = i;
+      const text = document.getElementById("text");
+
+      text.value = todoArray[i];
+      console.log(text.value, 'gggggggggg')
+      addTaskButton.style.display = "none";
+      saveTaskButton.style.display = "block";
+    }
+
+    function DeleteTodo(i) {
+      todoArray.splice(i, 1)
+      displayTodo();
+    }
+
+    function SaveTodo() {
+      const addTaskButton = document.getElementById("add-task-btn");
+      const saveTaskButton = document.getElementById("save-todo-btn");
+      const text = document.getElementById("text");
+      const saveInd = document.getElementById("saveIndex");
+
+      i = saveInd.value
+      todoArray[i] = text.value
+      displayTodo();
+      text.value = ""
+      addTaskButton.style.display = "block";
+      saveTaskButton.style.display = "none";
+    }
+
+    function displayTodo() {
+      let htmlCode = "";
+      todoArray.forEach((list, ind) => {
+        htmlCode += `<div class='flex mb-4 items-center'>
+  <p class='w-full text-grey-darkest'>${list}</p>
+  <button onclick='EditTodo(${ind})' class='flex-no-shrink p-2 ml-4 mr-2 border-2 rounded text-white text-grey bg-green-600'>Edit</button>
+  <button onclick='DeleteTodo(${ind})' class='flex-no-shrink p-2 ml-2 border-2 rounded text-white bg-red-500'>Delete</button>
+</div>`;
+      });
+      listBox.innerHTML = htmlCode;
+    }
+  </script>
+</head>
+
+<body>
+  <div class="h-100 w-full flex items-center justify-center bg-teal-lightest font-sans mt-20">
+    <div class="bg-white rounded shadow p-6 m-4 w-full lg:w-3/4 lg:max-w-lg" style="background-color: #c89025;">
+      <div class="mb-4">
+        <h1 class="text-3xl md:text-4xl text-indigo-600 font-medium mb-2">
+          To-Do App
+        </h1>
+        <div class="flex mt-4">
+          <input class="shadow appearance-none border rounded w-full py-2 px-3 mr-4 text-grey-darker" name="text"
+            id="text" placeholder="Add Todo" />
+          <input type="hidden" id="saveIndex" />
+          <button
+            class="p-2 lg:px-4 md:mx-2 text-center border border-solid border-indigo-600 rounded text-white bg-indigo-600 transition-colors duration-300 mt-1 md:mt-0 md:ml-1"
+            id="add-task-btn" onclick="AddTodo(this)">Add</button>
+          <button
+            class="p-2 lg:px-4 md:mx-2 text-center border border-solid border-indigo-600 rounded bg-indigo-600 text-white transition-colors duration-300 mt-1 md:mt-0 md:ml-1"
+            style="display: none" id="save-todo-btn" onclick="SaveTodo(this)">Save Edit</button>
+        </div>
+      </div>
+      <div id="listBox">
+
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
